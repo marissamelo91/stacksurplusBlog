@@ -12,7 +12,7 @@ Users.hasMany(Comment,{
 Comment.belongsTo(Users,{
     foreignKey: "user_id"
 });
-customElements.belongsTo(Post,{
+Comment.belongsTo(Post,{
     foreignKey: "post_id"
 });
 Post.hasMany(Comment,{
