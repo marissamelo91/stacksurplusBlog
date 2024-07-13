@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Users, Post} = require("../../models");
+const { Users, Post } = require("../../models");
 router.post("/login", async (req, res) => {
     const user = await Users.findOne({ where: { username: req.body.username } });
     console.log("user:", user)
@@ -55,4 +55,22 @@ router.post("/dashboard", async (req, res) => {
     res.status(200).json({ post, message: "New Post is Created!" })
 
 });
+
+router.put("/dashboard/post/:id", async (req, res) => {
+    await Post.update({
+        title: req.body.title,
+        content: req.body.content,
+    }, {
+        where: { id: req.params.id }
+    });
+    res.status(200).json({ message: "Post is Updated!" })
+});
+
+router.delete("/dashboard/post/:id", async (req, res) => {
+    await Post.destroy({
+        where: { id: req.params.id }
+    });
+    res.status(200).json({ message: "Post is Deleted!" })
+});
+
 module.exports = router;

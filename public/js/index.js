@@ -1,7 +1,9 @@
 const loginForm = $("#login-form");
 const signupForm = $("#signup-form");
 const postForm = $("#post-form");
+const postEditorForm = $("#post-editor-form");
 const logoutBtn = $("#logout-btn");
+const deleteBtn = $("#delete-btn");
 const loginHandler = async (event) => {
     try {
         event.preventDefault();
@@ -86,8 +88,53 @@ const newPostHandler = async (event) => {
     }
 }
 
+const postEditorHandler = async (event) => {
+    try {
+        event.preventDefault();
+        const id = postEditorForm.data("postId");
+        const title = $("#title").val().trim();
+        const content = $("#content").val();
+        const res = await $.ajax({
+            url: `/api/user/dashboard/post/${id}`,
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify({ title, content }),
+
+        });
+
+        $("#title").val("");
+        $("#content").val("");
+        if (res) {
+            window.location.replace("/dashboard");
+        }
+    } catch (error) {
+        alert("Failed to update post!");
+    }
+}
+
+const deleteHandler = async () => {
+    try {
+        const id = postEditorForm.data("postId");
+        const res = await $.ajax({
+            url: `/api/user/dashboard/post/${id}`,
+            method: "DELETE",
+            complete: (xhr, status) => {
+                if (xhr.status === 200) {
+                    window.location.replace("/dashboard");
+                }
+            }
+        });
+
+    } catch (error) {
+        alert("Failed to delete post!");
+    }
+}
+
 loginForm.on("submit", loginHandler);
 signupForm.on("submit", signupHandler);
 postForm.on("submit", newPostHandler);
+postEditorForm.on("submit", postEditorHandler);
 logoutBtn.on("click", logoutHandler);
+deleteBtn.on("click", deleteHandler);
+
 

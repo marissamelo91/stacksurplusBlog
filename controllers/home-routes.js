@@ -37,6 +37,19 @@ router.get("/dashboard", auth, async (req, res) => {
         res.status(500).json(err);
     }
 });
-
+router.get("/dashboard/post/:id"), async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id)
+        console.log("Post Data", postData);
+        if (!postData){
+            res.status(404).json({ message: "No post found with this id!" });
+            return;
+        }
+        const post = postData.get({ plain: true });
+        res.render("post-editor", { post, login: req.session.login });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
 
 module.exports = router;
