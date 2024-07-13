@@ -7,10 +7,14 @@ router.get("/", async (req, res) => {
             include: [{ model: Users, attributes: ["username"] }]
         });
         const posts = postData.map((post) => post.get({ plain: true }));
-        res.render("home-page", {posts});
+        res.render("home-page", { posts, login: req.session.login });
 
     } catch (err) {
         res.status(500).json(err);
     }
 });
+router.get("/login", (req, res) => {
+    res.render("login");
+});
+
 module.exports = router;
