@@ -1,5 +1,6 @@
 const loginForm = $("#login-form");
 const signupForm = $("#signup-form");
+const postForm = $("#post-form");
 const logoutBtn = $("#logout-btn");
 const loginHandler = async (event) => {
     try {
@@ -61,7 +62,32 @@ const logoutHandler = async (event) => {
         alert("Failed to logout!");
     }
 }
+
+const newPostHandler = async (event) => {
+    try {
+        event.preventDefault();
+        const title = $("#title").val().trim();
+        const content = $("#content").val();
+        const res = await $.ajax({
+            url: "/api/user/dashboard",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ title, content }),
+
+        });
+
+        $("#title").val("");
+        $("#content").val("");
+        if (res) {
+            window.location.replace("/dashboard");
+        }
+    } catch (error) {
+        alert("Failed to create post!");
+    }
+}
+
 loginForm.on("submit", loginHandler);
 signupForm.on("submit", signupHandler);
+postForm.on("submit", newPostHandler);
 logoutBtn.on("click", logoutHandler);
 
