@@ -31,5 +31,18 @@ router.post("/logout", async (req, res) => {
 
 
 });
+router.post("/signup" , async (req,res) =>{
+    const user = await Users.findOne({where:{username:req.body.username}})
+    if(user){
+        res.status(400).json({message:"username already exists"})
+        return;
+    }
+    const newUser = await Users.create(req.body)
+    req.session.save(() => {
+        req.session.user_id = newUser.id;
+        req.session.login = true;
+        res.status(200).json({ user, message: "You are logged in!" })
+    });
 
+});
 module.exports = router;
