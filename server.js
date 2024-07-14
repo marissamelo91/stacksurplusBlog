@@ -10,7 +10,7 @@ const sequelize = require("./config/connection");
 const helpers = require("./utils/helpers");
 const hbs = exphbs.create({helpers});
 const sess = {
-    secret: "Super secret secret",
+    secret: SECRET_KEY,
     cookie: { maxAge: 24 * 60 * 60 * 1000 },
     resave: false,
     saveUninitialized: true,
