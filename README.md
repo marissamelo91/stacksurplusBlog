@@ -1,7 +1,20 @@
 # stacksurplusBlog
 
 ## Description
+This project aims to create a platform similar to Wordpress where developers can publish their blog posts and engage with other developers' content through comments. You'll be building this site from the ground up and deploying it to Render.<br>
+The application follows the MVC (Model-View-Controller) architectural pattern for a structured development approach. Here are the key components and technologies used:<br>
 
+Handlebars.js: Templating engine for generating dynamic HTML pages. <br>
+Sequelize: ORM (Object-Relational Mapping) for interacting with the SQL database. <br>
+Express-session: npm package used for managing user sessions and authentication. <br>
+
+## Usuage
+To run the application locally, follow these steps:<br>
+1. Clone the repository to your local machine. <br>
+2. Install the required dependencies by running "npm install" in the terminal. <br>
+3. Set up your database configuration in config/config.json.<br>
+4. Run "npm run seed" to seed the database.<br>
+5. Start the server by running "npm start" in the terminal.<br>
 
 ## User Story
 AS A developer who writes about tech<br>
@@ -44,9 +57,15 @@ WHEN I am idle on the site for more than a set time<br>
 THEN I am able to view posts and comments but I am prompted to log in again before I can add, update, or delete posts<br>
 
 ## Sreenshots
+![screenshot](/public/css/Main-Home-Page.png)
+![screenshot](/public/css/Comment.png)
 
 ## Questions
 If you have any questions or need further clarification, please don't hesitate to reach out to me at
 marissa.melo91@yahoo.com or https://github.com/marissamelo91
 
 ## Credits
+Class Lectures<br>
+Youtube<br>
+Classmates - Thinh Nguyen and Faiza Haque<br>
+AI Tools - CHATGPT, Amazon Q, and Copilot<br>
