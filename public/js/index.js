@@ -2,6 +2,7 @@ const loginForm = $("#login-form");
 const signupForm = $("#signup-form");
 const postForm = $("#post-form");
 const postEditorForm = $("#post-editor-form");
+const commentForm = $("#comment-form");
 const logoutBtn = $("#logout-btn");
 const deleteBtn = $("#delete-btn");
 const loginHandler = async (event) => {
@@ -130,10 +131,34 @@ const deleteHandler = async () => {
     }
 }
 
+const commentHandler = async (event) => {
+    try {
+        event.preventDefault();
+        const comment_text = $("#comment-text").val().trim();
+        const post_id = commentForm.data("postId");
+        const res = await $.ajax({
+            url: `/api/user/post/${post_id}`,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ comment_text }),
+
+        });
+
+        $("#comment-text").val("");
+        if (res) {
+            window.location.replace(`/post/${post_id}`);
+        }
+    } catch (error) {
+        alert("Failed to create comment!");
+    }
+}
+
+
 loginForm.on("submit", loginHandler);
 signupForm.on("submit", signupHandler);
 postForm.on("submit", newPostHandler);
 postEditorForm.on("submit", postEditorHandler);
+commentForm.on("submit", commentHandler);
 logoutBtn.on("click", logoutHandler);
 deleteBtn.on("click", deleteHandler);
 

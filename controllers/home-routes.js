@@ -37,11 +37,11 @@ router.get("/dashboard", auth, async (req, res) => {
         res.status(500).json(err);
     }
 });
-router.get("/dashboard/post/:id"), async (req, res) => {
+router.get("/dashboard/post/:id", async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id)
         console.log("Post Data", postData);
-        if (!postData){
+        if (!postData) {
             res.status(404).json({ message: "No post found with this id!" });
             return;
         }
@@ -50,6 +50,28 @@ router.get("/dashboard/post/:id"), async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-}
+});
+router.get("/post/:id", async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [{ model: Users, attributes: ["username"] }]
+        })
+        if (!postData) {
+            res.status(404).json({ message: "No post found with this id!" });
+            return;
+        }
+        const commentData = await Comment.findAll({
+            where: { post_id: req.params.id },
+            include: [{ model: Users, attributes: ["username"] }]
+        })
 
+        const post = postData.get({ plain: true });
+        const comments = commentData.map(comment => comment.get({ plain: true }));
+        res.render("post-comment", { post, comments, login: req.session.login });
+    } catch (err) {
+        console.log("Error\n", err)
+        res.status(500).json(err);
+    }
+
+})
 module.exports = router;
