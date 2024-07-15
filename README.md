@@ -1,8 +1,7 @@
 # stacksurplusBlog
 
 ## Description
-This project aims to create a platform similar to Wordpress where developers can publish their blog posts and engage with other developers' content through comments. You'll be building this site from the ground up and deploying it to Render.<br>
-The application follows the MVC (Model-View-Controller) architectural pattern for a structured development approach. Here are the key components and technologies used:<br>
+This project aims to create a platform similar to Wordpress where developers can publish their blog posts and engage with other developers' content through comments. You'll be building this site from the ground up and deploying it to Render. The application follows the MVC (Model-View-Controller) architectural pattern for a structured development approach. Here are the key components and technologies used:<br>
 
 Handlebars.js: Templating engine for generating dynamic HTML pages. <br>
 Sequelize: ORM (Object-Relational Mapping) for interacting with the SQL database. <br>
